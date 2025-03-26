@@ -4,8 +4,7 @@ const gridDisplay = document.querySelector('.grid')
   let squares = []
   const width = 4
   let score = 0
-
-// Part 1: Create the Board
+//Creating the Board
 function createBoard() {
   for (let i = 0; i < 16; i++) {
     let square = document.createElement('div');
@@ -13,11 +12,11 @@ function createBoard() {
     gridDisplay.appendChild(square);
     squares.push(square);
   }
-  generate(); // Part 2: Call generate function to add initial numbers
+  generate(); // Calling generate function to add initial numbers(0 and 2)
   generate();
 }
 createBoard();
-// Part 2: Generate a New Number
+// Generating a NewNumber
 function generate() {
   let emptySquares = squares.filter(square => square.innerHTML == '0');
   if (emptySquares.length > 0) {
@@ -26,7 +25,6 @@ function generate() {
   }
 checkForGameOver()
 }
-
   function shiftRight() {
     for (let i=0; i < 16; i++) {
       if (i % 4 === 0) {
@@ -34,13 +32,11 @@ checkForGameOver()
         let totalTwo = squares[i+1].innerHTML
         let totalThree = squares[i+2].innerHTML
         let totalFour = squares[i+3].innerHTML
-        let row = [parseInt(totalOne), parseInt(totalTwo), parseInt(totalThree), parseInt(totalFour)]
-
+        let row = [parseInt(totalOne), parseInt(totalTwo), parseInt(totalThree), parseInt(totalFour)
         let filteredRow = row.filter(num => num)
         let missing = 4 - filteredRow.length
         let zeros = Array(missing).fill(0)
         let newRow = zeros.concat(filteredRow)
-
         squares[i].innerHTML = newRow[0]
         squares[i +1].innerHTML = newRow[1]
         squares[i +2].innerHTML = newRow[2]
@@ -57,7 +53,6 @@ checkForGameOver()
         let totalThree = squares[i+2].innerHTML
         let totalFour = squares[i+3].innerHTML
         let row = [parseInt(totalOne), parseInt(totalTwo), parseInt(totalThree), parseInt(totalFour)]
-
         let filteredRow = row.filter(num => num)
         let missing = 4 - filteredRow.length
         let zeros = Array(missing).fill(0)
@@ -71,7 +66,7 @@ checkForGameOver()
     }
   }
 
-// Part 5: Movement - Up
+// MovementUp
   function shiftUp() {
     for (let i=0; i < 4; i++) {
       let totalOne = squares[i].innerHTML
@@ -92,7 +87,7 @@ checkForGameOver()
     }
   }
 
-//Part 6 moveDown
+//moveDown
  function shiftDown() {
     for (let i=0; i < 4; i++) {
       let totalOne = squares[i].innerHTML
@@ -113,7 +108,7 @@ checkForGameOver()
     }
   }
 
-// Part 7: Combining Tiles Row
+//Combining  tilesRow
 function combineRow() {
   for (let i = 0; i < 15; i++) {
     if (i % 4 !== 3 && squares[i].innerHTML === squares[i + 1].innerHTML && squares[i].innerHTML !== '0') {
@@ -127,7 +122,7 @@ function combineRow() {
     checkForWin();
 }
 
-// Part 8: Combining Tiles Column
+//Combining Tilescolumn
 function combineColumn() {
   for (let i = 0; i < 4; i++) { // Iterate over each column
     for (let j = 0; j < 12; j += 4) { // Iterate through tiles in a column
@@ -143,7 +138,7 @@ function combineColumn() {
     checkForWin();
 }
 
-// Part 9: Game Over Detection
+// Game Over
 function checkForGameOver() {
   let noMovesLeft = true;
   for (let i = 0; i < squares.length; i++) {
@@ -167,7 +162,6 @@ function checkForGameOver() {
           break;
         }
       }
-
       // Down neighbor
       if (row < width - 1) { // Ensure not on the bottom row
         const down = parseInt(squares[i + width].innerHTML);
@@ -176,7 +170,6 @@ function checkForGameOver() {
           break;
         }
       }
-
       // Left neighbor (new)
       if (col > 0) { // Ensure not on the left edge
         const left = parseInt(squares[i - 1].innerHTML);
@@ -185,7 +178,6 @@ function checkForGameOver() {
           break;
         }
       }
-
       // Up neighbor (new)
       if (row > 0) { // Ensure not on the top row
         const up = parseInt(squares[i - width].innerHTML);
@@ -245,7 +237,7 @@ function checkForGameOver() {
     generate()
   }
 
-// Part 11 Check Win
+//Check Win
 function checkForWin() {
   for (let i = 0; i < squares.length; i++) {
     if (squares[i].innerHTML == 2048) {
